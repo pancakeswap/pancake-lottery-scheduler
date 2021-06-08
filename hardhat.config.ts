@@ -1,9 +1,9 @@
 import type { HardhatUserConfig } from "hardhat/types";
 import "@nomiclabs/hardhat-ethers";
 
- const config: HardhatUserConfig = {
-  solidity: "0.6.12",
-     defaultNetwork: "testnet",
+const config: HardhatUserConfig = {
+  solidity: "0.8.4",
+  defaultNetwork: "testnet",
   networks: {
     testnet: {
       url: "https://data-seed-prebsc-1-s1.binance.org:8545/",
