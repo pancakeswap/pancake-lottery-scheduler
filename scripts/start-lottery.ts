@@ -4,6 +4,7 @@ import { ethers, network } from "hardhat";
 import winston from "winston";
 import "winston-daily-rotate-file";
 import lotteryABI from "../abi/PancakeSwapLottery.json";
+import { getTicketPrice } from "../utils/farms";
 import config from "../config";
 
 const transport = new winston.transports.DailyRotateFile({
@@ -45,7 +46,7 @@ const main = async () => {
       const tx = await contract.startLottery(
         [
           config.Length[networkName],
-          config.TicketPrice[networkName],
+          networkName === "mainnet" ? await getTicketPrice() : config.TicketPrice[networkName],
           config.Discount[networkName],
           config.Rewards[networkName],
           config.Treasury[networkName],

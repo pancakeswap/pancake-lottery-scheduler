@@ -9,8 +9,8 @@ export default {
   },
   TicketPrice: {
     // Denominated in $Cake - 0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82 (mainnet)
-    mainnet: 1,
-    testnet: 3,
+    mainnet: 100000000000000000, // 1
+    testnet: 300000000000000000, // 3
   },
   Discount: {
     mainnet: 2000,
