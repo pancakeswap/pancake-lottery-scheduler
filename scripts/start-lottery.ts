@@ -1,10 +1,10 @@
 import { BigNumber } from "@ethersproject/bignumber";
-import { formatUnits } from "@ethersproject/units";
+import { formatUnits, parseUnits } from "@ethersproject/units";
 import { ethers, network } from "hardhat";
 import winston from "winston";
 import "winston-daily-rotate-file";
 import lotteryABI from "../abi/PancakeSwapLottery.json";
-import { getTicketPrice } from "../utils/farms";
+import { getTicketPrice } from "../utils/pricing";
 import config from "../config";
 
 const transport = new winston.transports.DailyRotateFile({
@@ -42,11 +42,14 @@ const main = async () => {
       ]);
       const gasPrice: BigNumber = _gasPrice.mul(BigNumber.from(2)); // Double the recommended gasPrice from the network for faster validation.
 
+      // Get ticket price (in Cake equivalent), for a given network.
+      const ticketPrice: string = await getTicketPrice(networkName, config.TicketPrice[networkName]);
+
       // Start lottery (with configuration parameters).
       const tx = await contract.startLottery(
         [
           config.Length[networkName],
-          networkName === "mainnet" ? await getTicketPrice() : config.TicketPrice[networkName],
+          parseUnits(ticketPrice, "ether").toString(),
           config.Discount[networkName],
           config.Rewards[networkName],
           config.Treasury[networkName],

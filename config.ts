@@ -8,9 +8,8 @@ export default {
     testnet: 99999, // Maximum time
   },
   TicketPrice: {
-    // Denominated in $Cake - 0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82 (mainnet)
-    mainnet: 500000000000000000, // 5
-    testnet: 500000000000000000, // 5
+    mainnet: 5,
+    testnet: 5,
   },
   Discount: {
     mainnet: 2000,
