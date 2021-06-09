@@ -46,7 +46,9 @@ const main = async () => {
       await contract.closeLottery(currentLotteryId, { gasPrice: gasPrice.toString() });
 
       // Draw lottery winning numbers, and set as `Claimable`.
-      await contract.drawFinalNumberAndMakeLotteryClaimable(currentLotteryId, { gasPrice: gasPrice.toString() });
+      await contract.drawFinalNumberAndMakeLotteryClaimable(currentLotteryId, {
+        gasPrice: gasPrice.toString(),
+      });
 
       const message = `[${new Date().toISOString()}] network=${networkName} block=${_blockNumber.toString()} message='Closed lottery #${currentLotteryId}' gasPrice=${formatUnits(
         gasPrice.toString(),
