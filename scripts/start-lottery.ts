@@ -4,7 +4,7 @@ import { ethers, network } from "hardhat";
 import winston from "winston";
 import "winston-daily-rotate-file";
 import lotteryABI from "../abi/PancakeSwapLottery.json";
-import { getTicketPrice } from "../utils/pricing";
+import { getEndTime, getTicketPrice } from "../utils";
 import config from "../config";
 
 const transport = new winston.transports.DailyRotateFile({
@@ -47,13 +47,11 @@ const main = async () => {
 
       // Start lottery (with configuration parameters).
       const tx = await contract.startLottery(
-        [
-          config.Length[networkName],
-          parseUnits(ticketPrice, "ether").toString(),
-          config.Discount[networkName],
-          config.Rewards[networkName],
-          config.Treasury[networkName],
-        ],
+        getEndTime(),
+        parseUnits(ticketPrice, "ether").toString(),
+        config.Discount[networkName],
+        config.Rewards[networkName],
+        config.Treasury[networkName],
         { gasPrice: gasPrice.toString() }
       );
 
@@ -63,9 +61,11 @@ const main = async () => {
       console.log(message);
       logger.info({ message });
     } catch (error) {
-      logger.error(`[${new Date().toISOString()}] network=${networkName} message='${error.message}'`);
+      console.error(`[${new Date().toISOString()}] network=${networkName} message='${error.message}'`);
+      logger.error({ message: `[${new Date().toISOString()}] network=${networkName} message='${error.message}'` });
     }
   } else {
+    console.error(`[${new Date().toISOString()}] network=${networkName} message='Unsupported network'`);
     logger.error({
       message: `[${new Date().toISOString()}] network=${networkName} message='Unsupported network'`,
     });

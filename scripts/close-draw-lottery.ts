@@ -43,10 +43,10 @@ const main = async () => {
       const gasPrice: BigNumber = _gasPrice.mul(BigNumber.from(2)); // Double the recommended gasPrice from the network for faster validation.
 
       // Close lottery.
-      await contract.closeLottery(currentLotteryId, { gasPrice: gasPrice.toString() });
+      await contract.closeLottery(currentLotteryId.toString(), { gasPrice: gasPrice.toString() });
 
       // Draw lottery winning numbers, and set as `Claimable`.
-      await contract.drawFinalNumberAndMakeLotteryClaimable(currentLotteryId, {
+      await contract.drawFinalNumberAndMakeLotteryClaimable(currentLotteryId.toString(), {
         gasPrice: gasPrice.toString(),
       });
 
@@ -57,9 +57,11 @@ const main = async () => {
       console.log(message);
       logger.info({ message });
     } catch (error) {
-      logger.error(`[${new Date().toISOString()}] network=${networkName} message='${error.message}'`);
+      console.error(`[${new Date().toISOString()}] network=${networkName} message='${error.message}'`);
+      logger.error({ message: `[${new Date().toISOString()}] network=${networkName} message='${error.message}'` });
     }
   } else {
+    console.error(`[${new Date().toISOString()}] network=${networkName} message='Unsupported network'`);
     logger.error({
       message: `[${new Date().toISOString()}] network=${networkName} message='Unsupported network'`,
     });

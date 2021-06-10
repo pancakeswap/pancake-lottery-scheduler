@@ -1,11 +1,7 @@
 export default {
   Lottery: {
     mainnet: "0x0000000000000000000000000000000000000000",
-    testnet: "0x46282300c9634fD4aBb99F6aDEFd7d870a54d157",
-  },
-  Length: {
-    mainnet: 43200, // 12 hours in seconds
-    testnet: 99999, // Maximum time
+    testnet: "0x3E57474e7E3CCE048e1aBD6d007Dd3568b4414B6",
   },
   TicketPrice: {
     mainnet: 5,

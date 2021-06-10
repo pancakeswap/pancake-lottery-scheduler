@@ -1,5 +1,6 @@
 import BigNumber from "bignumber.js";
 import { ethers } from "hardhat";
+import moment from "moment";
 import pairABI from "../abi/PancakePair.json";
 
 // PancakeSwap v2 pair address (mainnet only).
@@ -27,4 +28,36 @@ export const getTicketPrice = async (networkName: string, usd: number): Promise<
 
   // Return a default value, based on 1 Cake = 1 BUSD, for any other networks than 'mainnet'.
   return new BigNumber(usd).toFixed(18);
+};
+
+/**
+ * Get the next lottery 'endTime', based on current date, as UTC.
+ * Used by 'start-lottery.ts' Hardhat script, only.
+ *
+ * @returns number
+ * @throws Error
+ */
+export const getEndTime = (): number => {
+  // Get current date, as UTC.
+  const now = moment().utc();
+
+  // Get meridiem (AM/PM), based on current UTC Date.
+  const meridiem = now.format("A");
+  if (meridiem === "AM") {
+    // We are in the morning (ante-meridiem), next lottery is at midday.
+    return moment(`${now.format("MM DD YYYY")} 01:00:00 AM`, "MM DD YYYY hh:mm:ss A")
+      .add(12, "hours")
+      .startOf("hour")
+      .utc()
+      .unix();
+  } else if (meridiem === "PM") {
+    // We are in the afternoon (post-meridiem), next lottery is at midnight.
+    return moment(`${now.format("MM DD YYYY")} 13:00:00 PM`, "MM DD YYYY hh:mm:ss A")
+      .add(12, "hours")
+      .startOf("hour")
+      .utc()
+      .unix();
+  }
+
+  throw new Error("Could not determine next endTime");
 };
