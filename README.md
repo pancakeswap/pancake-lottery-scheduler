@@ -27,7 +27,8 @@ $ yarn execute:[command]:[network]
 #### Command(s)
 
 - `start`: Start a new lottery round; for a given network.
-- `close-draw`: Close a lottery round, and draw winning numbers, based on `currentLotteryId`; for a given network.
+- `close`: Close a lottery round, based on `currentLotteryId`; for a given network.
+- `draw`: Draw winning numbers, based on `currentLotteryId`; for a given network.
 
 #### Network(s)
 
