@@ -435,7 +435,7 @@
   },
   {
     "inputs": [],
-    "name": "maxNumberTicketsPerBuy",
+    "name": "maxNumberTicketsPerBuyOrClaim",
     "outputs": [
       {
         "internalType": "uint256",
