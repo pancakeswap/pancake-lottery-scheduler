@@ -47,7 +47,7 @@ const main = async () => {
         gasPrice: gasPrice.toString(),
       });
 
-      const message = `[${new Date().toISOString()}] network=${networkName} block=${_blockNumber.toString()} message='Closed lottery #${currentLotteryId}' gasPrice=${formatUnits(
+      const message = `[${new Date().toISOString()}] network=${networkName} block=${_blockNumber.toString()} message='Drawed winning numbers for lottery #${currentLotteryId}' gasPrice=${formatUnits(
         gasPrice.toString(),
         "gwei"
       )}`;
