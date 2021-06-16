@@ -43,12 +43,11 @@ const main = async () => {
       const gasPrice: BigNumber = _gasPrice.mul(BigNumber.from(2)); // Double the recommended gasPrice from the network for faster validation.
 
       // Close lottery.
-      await contract.closeLottery(currentLotteryId.toString(), { gasPrice: gasPrice.toString() });
+      const tx = await contract.closeLottery(currentLotteryId.toString(), { gasPrice: gasPrice.toString() });
 
-      const message = `[${new Date().toISOString()}] network=${networkName} block=${_blockNumber.toString()} message='Closed lottery #${currentLotteryId}' gasPrice=${formatUnits(
-        gasPrice.toString(),
-        "gwei"
-      )}`;
+      const message = `[${new Date().toISOString()}] network=${networkName} block=${_blockNumber.toString()} message='Closed lottery #${currentLotteryId}' hash=${
+        tx?.hash
+      } gasPrice=${formatUnits(gasPrice.toString(), "gwei")}`;
       console.log(message);
       logger.info({ message });
     } catch (error) {
