@@ -2,20 +2,20 @@
 
 ### Description
 
-The scheduler is composed of multiple scripts used to call `startLottery`, `closeLottery`, or `drawFinalNumberAndMakeLotteryClaimable` functions, and trigger events; as well as monitoring lottery results.
+The scheduler is composed of multiple scripts used to call `startLottery`, `closeLottery`, and `drawFinalNumberAndMakeLotteryClaimable` functions, and trigger events; as well as monitoring lottery results.
 
 ### Config
 
 - `Lottery`: Address of [PancakeSwapLottery](https://github.com/pancakeswap/pancake-contracts/tree/master/projects/lottery) contract
 - `Length`: Length (time-based, denominated in seconds)
-- `TicketPrice`: Ticket price, denominated in [$Cake](https://bscscan.com/token/0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82)
+- `TicketPrice`: Ticket price, denominated in USD (script will convert the value in [$Cake](https://bscscan.com/token/0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82))
 - `Discount`: Divisor to compute discount magnitude for bulk ticket purchase
 - `Rewards`: Reward breakdown per bracket (total must be equal to 10,000)
 - `Treasury`: Fee, denominated in percentage, to 2 decimals (e.g.: 100 => 1%)
 
 ### Deployment
 
-Configuration can be set by editing [config.ts](config.ts) file.
+Configuration can be overwritten by editing [config.ts](config.ts) file.
 
 ```shell script
 # Export operator private key to be used on Hardhat Network Config.
@@ -38,19 +38,20 @@ $ yarn execute:[command]:[network]
 
 ### Logging
 
-Logs would be generated at `logs/lottery-YYYY-MM-DD.log` and would be archived (.gz) daily.
+Logs will be generated at `logs/lottery-YYYY-MM-DD.log` and will be archived (.gz), with a daily rotation.
 
 Example of logs for success:
 
 ```log
-{"message":"[1970-01-01T00:00:00.000Z] network=testnet block=10000000 message='Started lottery' hash=sdf gasPrice=10.0","level":"info"}
-{"message":"[1970-01-01T00:01:00.000Z] network=testnet block=10010010 message='Closed lottery #123' gasPrice=10.0","level":"info"}
-{"message":"[1970-01-01T00:02:00.000Z] network=testnet block=10100100 message='Started lottery' hash=0x... gasPrice=15.0","level":"info"}
+{"message":"[1970-01-01T01:00:00.000Z] network=testnet block=10000000 message='Started lottery' hash=0x... gasPrice=10.0","level":"info"}
+{"message":"[1970-01-01T01:01:00.000Z] network=testnet block=10010010 message='Closed lottery #123' hash=0x... gasPrice=10.0","level":"info"}
+{"message":"[1970-01-01T01:05:00.000Z] network=testnet block=10100100 message='Drawed lottery #123' hash=0x... gasPrice=10.0","level":"info"}
+{"message":"[1970-01-01T13:00:00.000Z] network=testnet block=11001000 message='Started lottery' hash=0x... gasPrice=10.0","level":"info"}
 ```
 
 Example of logs for error:
 
 ```log
-{"message":"[1970-01-01T00:03:00.000Z] network=testnet message='Unsupported network'","level":"error"}
-{"message":"[1970-01-01T00:04:00.000Z] network=testnet message='Invalid JSON RPC response'","level":"error"}
+{"message":"[1970-01-01T01:00:00.000Z] network=testnet message='Unsupported network'","level":"error"}
+{"message":"[1970-01-01T13:00:00.000Z] network=testnet message='Invalid JSON RPC response'","level":"error"}
 ```
