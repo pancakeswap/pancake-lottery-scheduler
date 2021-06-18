@@ -5,7 +5,7 @@ export default {
   },
   TicketPrice: {
     mainnet: 5,
-    testnet: 1,
+    testnet: 0.1,
   },
   Discount: {
     mainnet: 2000,
