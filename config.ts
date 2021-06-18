@@ -4,10 +4,12 @@ export default {
     testnet: "0x61eB006004Ed122087036C827065aF0111d06C1A",
   },
   Ticket: {
+    // USD eq. price, to be converted in $Cake.
     Price: {
       mainnet: 5,
       testnet: 0.1,
     },
+    // Precision (decimals) of the price for better readability, ...
     Precision: {
       mainnet: 2,
       testnet: 6,
