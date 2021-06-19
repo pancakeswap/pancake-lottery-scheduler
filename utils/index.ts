@@ -6,7 +6,7 @@ import pairABI from "../abi/PancakePair.json";
 // PancakeSwap v2 pair address (mainnet only).
 const CAKE_BUSD = "0x804678fa97d91B974ec2af3c843270886528a9E6";
 
-export const getTicketPrice = async (networkName: string, usd: number): Promise<string> => {
+export const getTicketPrice = async (networkName: string, usd: number, precision: number): Promise<string> => {
   // PancakeSwap v2 is only available on mainnet, static values are used for any other networks (testnet included).
   if (networkName === "mainnet") {
     // Bind the smart contract address to the PancakeSwap Pair ABI, for the given network.
@@ -23,11 +23,11 @@ export const getTicketPrice = async (networkName: string, usd: number): Promise<
     const ticketPrice: BigNumber = price.times(new BigNumber(usd));
 
     // Return the ticket price (in Cake equivalent).
-    return ticketPrice.toFixed(18);
+    return ticketPrice.toFixed(precision);
   }
 
   // Return a default value, based on 1 Cake = 1 BUSD, for any other networks than 'mainnet'.
-  return new BigNumber(usd).toFixed(18);
+  return new BigNumber(usd).toFixed(precision);
 };
 
 /**

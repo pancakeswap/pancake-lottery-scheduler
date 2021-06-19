@@ -43,7 +43,11 @@ const main = async () => {
       const gasPrice: BigNumber = _gasPrice.mul(BigNumber.from(2)); // Double the recommended gasPrice from the network for faster validation.
 
       // Get ticket price (in Cake equivalent), for a given network.
-      const ticketPrice: string = await getTicketPrice(networkName, config.TicketPrice[networkName]);
+      const ticketPrice: string = await getTicketPrice(
+        networkName,
+        config.Ticket.Price[networkName],
+        config.Ticket.Precision[networkName]
+      );
 
       // Start lottery (with configuration parameters).
       const tx = await contract.startLottery(
