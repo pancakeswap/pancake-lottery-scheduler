@@ -20,7 +20,7 @@ export const getTicketPrice = async (networkName: string, usd: number, precision
     const price: BigNumber = new BigNumber(reserve0.toString()).div(new BigNumber(reserve1.toString()));
 
     // Compute the ticket price (per 1 BUSD), to the required USD equivalent value.
-    const ticketPrice: BigNumber = price.times(new BigNumber(usd));
+    const ticketPrice: BigNumber = price.times(usd);
 
     // Return the ticket price (in Cake equivalent).
     return ticketPrice.toFixed(precision);

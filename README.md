@@ -7,8 +7,7 @@ The scheduler is composed of multiple scripts used to call `startLottery`, `clos
 ### Config
 
 - `Lottery`: Address of [PancakeSwapLottery](https://github.com/pancakeswap/pancake-contracts/tree/master/projects/lottery) contract
-- `Length`: Length (time-based, denominated in seconds)
-- `TicketPrice`: Ticket price, denominated in USD (script will convert the value in [$Cake](https://bscscan.com/token/0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82))
+- `Ticket`: Ticket Price (denominated in USD) and Precision
 - `Discount`: Divisor to compute discount magnitude for bulk ticket purchase
 - `Rewards`: Reward breakdown per bracket (total must be equal to 10,000)
 - `Treasury`: Fee, denominated in percentage, to 2 decimals (e.g.: 100 => 1%)
