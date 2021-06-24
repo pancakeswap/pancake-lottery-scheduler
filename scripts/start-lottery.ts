@@ -1,21 +1,10 @@
 import { BigNumber } from "@ethersproject/bignumber";
 import { formatUnits, parseUnits } from "@ethersproject/units";
 import { ethers, network } from "hardhat";
-import winston from "winston";
-import "winston-daily-rotate-file";
 import lotteryABI from "../abi/PancakeSwapLottery.json";
 import { getEndTime, getTicketPrice } from "../utils";
 import config from "../config";
-
-const transport = new winston.transports.DailyRotateFile({
-  filename: "logs/lottery-%DATE%.log",
-  datePattern: "YYYY-MM-DD",
-  zippedArchive: true,
-});
-
-const logger = winston.createLogger({
-  transports: [transport],
-});
+import logger from "../utils/logger";
 
 const main = async () => {
   // Get network data from Hardhat config (see hardhat.config.ts).
