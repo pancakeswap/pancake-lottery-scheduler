@@ -42,14 +42,14 @@ const main = async () => {
       console.log(message);
       logger.info({ message });
     } catch (error) {
-      console.error(`[${new Date().toISOString()}] network=${networkName} message='${error.message}'`);
-      logger.error({ message: `[${new Date().toISOString()}] network=${networkName} message='${error.message}'` });
+      const message = `[${new Date().toISOString()}] network=${networkName} message='${error.message}'`;
+      console.error(message);
+      logger.error({ message });
     }
   } else {
-    console.error(`[${new Date().toISOString()}] network=${networkName} message='Unsupported network'`);
-    logger.error({
-      message: `[${new Date().toISOString()}] network=${networkName} message='Unsupported network'`,
-    });
+    const message = `[${new Date().toISOString()}] network=${networkName} message='Unsupported network'`;
+    console.error(message);
+    logger.error({ message });
   }
 };
 
