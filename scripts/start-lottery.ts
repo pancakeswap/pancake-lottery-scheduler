@@ -6,22 +6,26 @@ import { getEndTime, getTicketPrice } from "../utils";
 import config from "../config";
 import logger from "../utils/logger";
 
+/**
+ * Start lottery.
+ */
 const main = async () => {
   // Get network data from Hardhat config (see hardhat.config.ts).
   const networkName = network.name;
 
   // Check if the network is supported.
   if (networkName === "testnet" || networkName === "mainnet") {
-    // Check if the configuration is valid.
+    // Check if the private key is set (see ethers.js signer).
     if (!process.env.PRIVATE_KEY) {
       throw new Error("Missing private key (signer).");
     }
+    // Check if the PancakeSwap Lottery smart contract address is set.
     if (config.Lottery[networkName] === ethers.constants.AddressZero) {
       throw new Error("Missing smart contract (Lottery) address.");
     }
 
     try {
-      // Bind the smart contract address to the ABI, for the given network.
+      // Bind the smart contract address to the ABI, for a given network.
       const contract = await ethers.getContractAt(lotteryABI, config.Lottery[networkName]);
 
       // Get network data for running script.
@@ -38,7 +42,7 @@ const main = async () => {
         config.Ticket.Precision[networkName]
       );
 
-      // Start lottery (with configuration parameters).
+      // Create, sign and broadcast transaction.
       const tx = await contract.startLottery(
         getEndTime(),
         parseUnits(ticketPrice, "ether").toString(),
@@ -54,14 +58,14 @@ const main = async () => {
       console.log(message);
       logger.info({ message });
     } catch (error) {
-      console.error(`[${new Date().toISOString()}] network=${networkName} message='${error.message}'`);
-      logger.error({ message: `[${new Date().toISOString()}] network=${networkName} message='${error.message}'` });
+      const message = `[${new Date().toISOString()}] network=${networkName} message='${error.message}'`;
+      console.error(message);
+      logger.error({ message });
     }
   } else {
-    console.error(`[${new Date().toISOString()}] network=${networkName} message='Unsupported network'`);
-    logger.error({
-      message: `[${new Date().toISOString()}] network=${networkName} message='Unsupported network'`,
-    });
+    const message = `[${new Date().toISOString()}] network=${networkName} message='Unsupported network'`;
+    console.error(message);
+    logger.error({ message });
   }
 };
 
