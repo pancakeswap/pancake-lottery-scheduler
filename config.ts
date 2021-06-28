@@ -22,7 +22,7 @@ export default {
     testnet: [125, 375, 750, 1250, 2500, 5000],
   },
   Treasury: {
-    mainnet: 100, // 100 => 1%
+    mainnet: 100,
     testnet: 2000,
   },
 };
