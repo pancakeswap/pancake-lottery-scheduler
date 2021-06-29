@@ -1,7 +1,7 @@
 export default {
   Lottery: {
     mainnet: "0x0000000000000000000000000000000000000000",
-    testnet: "0x374524c998d1E9afC7EB4d2025153b0b3FDCCf29",
+    testnet: "0xc78819a896815310C1722774aFB1459c6B434FFC",
   },
   Ticket: {
     Price: {
