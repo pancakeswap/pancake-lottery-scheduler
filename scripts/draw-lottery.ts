@@ -12,7 +12,7 @@ const main = async () => {
   // Get network data from Hardhat config (see hardhat.config.ts).
   const networkName = network.name;
 
-  // Get signers to sign the transaction(s).
+  // Get signer to sign the transaction(s).
   const [operator] = await ethers.getSigners();
 
   // Check if the network is supported.
