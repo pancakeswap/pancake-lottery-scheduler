@@ -13,6 +13,10 @@ export default {
       testnet: 1,
     },
   },
+  Injection: {
+    testnet: 100,
+    mainnet: 10000,
+  },
   Discount: {
     mainnet: 2000,
     testnet: 2000,

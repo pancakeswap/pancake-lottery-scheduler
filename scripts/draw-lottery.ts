@@ -46,7 +46,7 @@ const main = async () => {
 
       const message = `[${new Date().toISOString()}] network=${networkName} block=${_blockNumber.toString()} message='Drawed lottery #${_lotteryId}' hash=${
         tx?.hash
-      } gasPrice=${formatUnits(gasPrice.toString(), "gwei")}`;
+      } gasPrice=${formatUnits(gasPrice.toString(), "gwei")} signer=${operator.address}`;
       console.log(message);
       logger.info({ message });
     } catch (error) {

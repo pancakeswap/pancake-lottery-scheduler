@@ -8,9 +8,10 @@ The scheduler is composed of multiple scripts used to call `startLottery`, `clos
 
 - `Lottery`: Address of [PancakeSwapLottery](https://github.com/pancakeswap/pancake-contracts/tree/master/projects/lottery) contract
 - `Ticket`: Ticket Price (denominated in USD) and Precision
+- `Injection`: Amount (denominated in $Cake) to be injected
 - `Discount`: Divisor to compute discount magnitude for bulk ticket purchase
 - `Rewards`: Reward breakdown per bracket (total must be equal to 10,000)
-- `Treasury`: Fee, denominated in percentage, to 2 decimals (e.g.: 100 => 1%)
+- `Treasury`: Fee (denominated as percentage) to 2 decimals (e.g.: 100 => 1%)
 
 ### Deployment
 
@@ -26,9 +27,10 @@ $ yarn execute:[command]:[network]
 
 #### Command(s)
 
-- `start`: Start a new lottery round; for a given network.
-- `close`: Close a lottery round, based on `currentLotteryId`; for a given network.
+- `start`: Start a new lottery; for a given network.
+- `close`: Close a lottery, based on `currentLotteryId`; for a given network.
 - `draw`: Draw winning numbers, based on `currentLotteryId`; for a given network.
+- `inject`: Inject funds ($Cake), based on `currentLotteryId`; for a given network.
 
 #### Network(s)
 
