@@ -12,10 +12,13 @@ const main = async () => {
   // Get network data from Hardhat config (see hardhat.config.ts).
   const networkName = network.name;
 
+  // Get signers to sign the transaction(s).
+  const [operator] = await ethers.getSigners();
+
   // Check if the network is supported.
   if (networkName === "testnet" || networkName === "mainnet") {
     // Check if the private key is set (see ethers.js signer).
-    if (!process.env.PRIVATE_KEY) {
+    if (!process.env.OPERATOR_PRIVATE_KEY) {
       throw new Error("Missing private key (signer).");
     }
     // Check if the PancakeSwap Lottery smart contract address is set.
@@ -38,6 +41,7 @@ const main = async () => {
       // Create, sign and broadcast transaction.
       const tx = await contract.drawFinalNumberAndMakeLotteryClaimable(_lotteryId.toString(), true, {
         gasPrice: gasPrice.toString(),
+        from: operator,
       });
 
       const message = `[${new Date().toISOString()}] network=${networkName} block=${_blockNumber.toString()} message='Drawed lottery #${_lotteryId}' hash=${
