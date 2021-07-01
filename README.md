@@ -17,7 +17,7 @@ The scheduler is composed of multiple scripts used to call `startLottery`, `clos
 Configuration can be overwritten by editing [config.ts](config.ts) file.
 
 ```shell script
-# Export operator, and injector private key to be used on Hardhat Network Config.
+# Export operator, and injector private keys to be used on Hardhat Network Config.
 $ export OPERATOR_PRIVATE_KEY=OPERATOR_PRIVATE_KEY
 $ export INJECTOR_PRIVATE_KEY=INJECTOR_PRIVATE_KEY
 
