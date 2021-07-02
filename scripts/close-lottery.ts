@@ -39,7 +39,7 @@ const main = async () => {
         contract.randomGenerator(),
       ]);
 
-      // Verify keyHash is set and correct, according to Chainlink documentation, for a given network.
+      // Verify Chainlink VRF Key Hash is set and correct, according to Chainlink documentation, for a given network.
       const randomGeneratorContract = await ethers.getContractAt(randomGeneratorABI, _randomGenerator);
       const keyHash = await randomGeneratorContract.keyHash();
       if (keyHash !== config.ChainlinkVRF.keyHash[networkName]) {
