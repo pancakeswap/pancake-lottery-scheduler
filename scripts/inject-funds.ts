@@ -42,7 +42,7 @@ const main = async () => {
       const tx = await contract.injectFunds(
         _lotteryId.toString(),
         parseUnits(config.Injection[networkName].toString(), "ether").toString(),
-        { gasPrice: gasPrice.toString(), from: injector }
+        { gasPrice: gasPrice.toString(), from: injector.address }
       );
 
       const message = `[${new Date().toISOString()}] network=${networkName} block=${_blockNumber.toString()} message='Injected lottery #${_lotteryId}' hash=${
