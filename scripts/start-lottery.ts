@@ -36,7 +36,9 @@ const main = async () => {
         ethers.provider.getGasPrice(),
         ethers.provider.getBlockNumber(),
       ]);
-      const gasPrice: BigNumber = _gasPrice.mul(BigNumber.from(2)); // Double the recommended gasPrice from the network for faster validation.
+
+      // Double the recommended gasPrice from the network for faster validation.
+      const gasPrice: BigNumber = _gasPrice.mul(BigNumber.from(2));
 
       // Get ticket price (in Cake equivalent), for a given network.
       const ticketPrice: string = await getTicketPrice(

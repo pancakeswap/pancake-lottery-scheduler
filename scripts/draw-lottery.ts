@@ -36,7 +36,9 @@ const main = async () => {
         ethers.provider.getBlockNumber(),
         contract.currentLotteryId(),
       ]);
-      const gasPrice: BigNumber = _gasPrice.mul(BigNumber.from(2)); // Double the recommended gasPrice from the network for faster validation.
+
+      // Double the recommended gasPrice from the network for faster validation.
+      const gasPrice: BigNumber = _gasPrice.mul(BigNumber.from(2));
 
       // Create, sign and broadcast transaction.
       const tx = await contract.drawFinalNumberAndMakeLotteryClaimable(_lotteryId.toString(), true, {

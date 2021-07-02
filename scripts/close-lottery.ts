@@ -2,6 +2,7 @@ import { BigNumber } from "@ethersproject/bignumber";
 import { formatUnits } from "@ethersproject/units";
 import { ethers, network } from "hardhat";
 import lotteryABI from "../abi/PancakeSwapLottery.json";
+import randomGeneratorABI from "../abi/RandomNumberGenerator.json";
 import config from "../config";
 import logger from "../utils/logger";
 
@@ -31,12 +32,22 @@ const main = async () => {
       const contract = await ethers.getContractAt(lotteryABI, config.Lottery[networkName]);
 
       // Get network data for running script.
-      const [_gasPrice, _blockNumber, _lotteryId] = await Promise.all([
+      const [_gasPrice, _blockNumber, _lotteryId, _randomGenerator] = await Promise.all([
         ethers.provider.getGasPrice(),
         ethers.provider.getBlockNumber(),
         contract.currentLotteryId(),
+        contract.randomGenerator(),
       ]);
-      const gasPrice: BigNumber = _gasPrice.mul(BigNumber.from(2)); // Double the recommended gasPrice from the network for faster validation.
+
+      // Verify keyHash is set and correct, according to Chainlink documentation, for a given network.
+      const randomGeneratorContract = await ethers.getContractAt(randomGeneratorABI, _randomGenerator);
+      const keyHash = await randomGeneratorContract.keyHash();
+      if (keyHash !== config.ChainlinkVRF.keyHash[networkName]) {
+        throw new Error("Invalid keyHash on RandomGenerator contract");
+      }
+
+      // Double the recommended gasPrice from the network for faster validation.
+      const gasPrice: BigNumber = _gasPrice.mul(BigNumber.from(2));
 
       // Create, sign and broadcast transaction.
       const tx = await contract.closeLottery(_lotteryId.toString(), {
