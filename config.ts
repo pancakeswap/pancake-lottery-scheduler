@@ -1,7 +1,7 @@
 export default {
   Lottery: {
-    mainnet: "0x0000000000000000000000000000000000000000",
-    testnet: "0xc78819a896815310C1722774aFB1459c6B434FFC",
+    mainnet: "0x5aF6D33DE2ccEC94efb1bDF8f92Bd58085432d2c",
+    testnet: "0x5790c3534F30437641541a0FA04C992799602998",
   },
   Ticket: {
     Price: {
@@ -14,8 +14,8 @@ export default {
     },
   },
   Injection: {
-    testnet: 100,
     mainnet: 10000,
+    testnet: 100,
   },
   Discount: {
     mainnet: 2000,
@@ -26,7 +26,7 @@ export default {
     testnet: [125, 375, 750, 1250, 2500, 5000],
   },
   Treasury: {
-    mainnet: 100,
+    mainnet: 2000,
     testnet: 2000,
   },
 };

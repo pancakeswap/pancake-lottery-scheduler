@@ -39,7 +39,10 @@ const main = async () => {
       const gasPrice: BigNumber = _gasPrice.mul(BigNumber.from(2)); // Double the recommended gasPrice from the network for faster validation.
 
       // Create, sign and broadcast transaction.
-      const tx = await contract.closeLottery(_lotteryId.toString(), { gasPrice: gasPrice.toString(), from: operator });
+      const tx = await contract.closeLottery(_lotteryId.toString(), {
+        gasPrice: gasPrice.toString(),
+        from: operator.address,
+      });
 
       const message = `[${new Date().toISOString()}] network=${networkName} block=${_blockNumber.toString()} message='Closed lottery #${_lotteryId}' hash=${
         tx?.hash

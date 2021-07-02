@@ -41,7 +41,7 @@ const main = async () => {
       // Create, sign and broadcast transaction.
       const tx = await contract.drawFinalNumberAndMakeLotteryClaimable(_lotteryId.toString(), true, {
         gasPrice: gasPrice.toString(),
-        from: operator,
+        from: operator.address,
       });
 
       const message = `[${new Date().toISOString()}] network=${networkName} block=${_blockNumber.toString()} message='Drawed lottery #${_lotteryId}' hash=${

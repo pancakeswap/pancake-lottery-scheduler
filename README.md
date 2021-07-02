@@ -46,9 +46,10 @@ Example of logs for success:
 
 ```log
 {"message":"[1970-01-01T01:00:00.000Z] network=testnet block=10000000 message='Started lottery' hash=0x... gasPrice=10.0","level":"info"}
-{"message":"[1970-01-01T01:01:00.000Z] network=testnet block=10010010 message='Closed lottery #123' hash=0x... gasPrice=10.0","level":"info"}
-{"message":"[1970-01-01T01:05:00.000Z] network=testnet block=10100100 message='Drawed lottery #123' hash=0x... gasPrice=10.0","level":"info"}
-{"message":"[1970-01-01T13:00:00.000Z] network=testnet block=11001000 message='Started lottery' hash=0x... gasPrice=10.0","level":"info"}
+{"message":"[1970-01-01T13:00:00.000Z] network=testnet block=10010010 message='Closed lottery #123' hash=0x... gasPrice=10.0","level":"info"}
+{"message":"[1970-01-01T13:03:00.000Z] network=testnet block=10100100 message='Drawed lottery #123' hash=0x... gasPrice=10.0","level":"info"}
+{"message":"[1970-01-01T13:05:00.000Z] network=testnet block=11001000 message='Started lottery' hash=0x... gasPrice=10.0","level":"info"}
+{"message":"[1970-01-01T13:10:00.000Z] network=testnet block=10010001 message='Injected lottery #124' hash=0x... gasPrice=10.0","level":"info"}
 ```
 
 Example of logs for error:
