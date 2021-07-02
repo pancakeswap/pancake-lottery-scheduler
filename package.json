@@ -9,6 +9,8 @@
     "execute:close:mainnet": "npx hardhat run --network mainnet scripts/close-lottery.ts",
     "execute:draw:testnet": "npx hardhat run --network testnet scripts/draw-lottery.ts",
     "execute:draw:mainnet": "npx hardhat run --network mainnet scripts/draw-lottery.ts",
+    "execute:inject:testnet": "npx hardhat run --network testnet scripts/inject-funds.ts",
+    "execute:inject:mainnet": "npx hardhat run --network mainnet scripts/inject-funds.ts",
     "format:check": "prettier --check '*/**/*.{js,ts}'",
     "format:write": "prettier --write '*/**/*.{js,ts}'",
     "lint": "eslint '*/**/*.{js,ts}'"
