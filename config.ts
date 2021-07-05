@@ -3,6 +3,13 @@ export default {
     mainnet: "0x5aF6D33DE2ccEC94efb1bDF8f92Bd58085432d2c",
     testnet: "0x5790c3534F30437641541a0FA04C992799602998",
   },
+  ChainlinkVRF: {
+    // Documentation: https://docs.chain.link/docs/vrf-contracts/
+    keyHash: {
+      mainnet: "0xc251acd21ec4fb7f31bb8868288bfdbaeb4fbfec2df3735ddbd4f7dc8d60103c",
+      testnet: "0xcaf3c3727e033261d383b315559476f48034c13b18f8cafed4d871abe5049186",
+    },
+  },
   Ticket: {
     Price: {
       mainnet: 5,

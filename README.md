@@ -57,4 +57,5 @@ Example of logs for error:
 ```log
 {"message":"[1970-01-01T01:00:00.000Z] network=testnet message='Unsupported network'","level":"error"}
 {"message":"[1970-01-01T13:00:00.000Z] network=testnet message='Invalid JSON RPC response'","level":"error"}
+{"message":"[1970-01-02T01:00:00.000Z] network=testnet message='Invalid keyHash on RandomGenerator contract'","level":"error"}
 ```
