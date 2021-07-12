@@ -55,7 +55,8 @@ Example of logs for success:
 Example of logs for error:
 
 ```log
-{"message":"[1970-01-01T01:00:00.000Z] network=testnet message='Unsupported network'","level":"error"}
-{"message":"[1970-01-01T13:00:00.000Z] network=testnet message='Invalid JSON RPC response'","level":"error"}
-{"message":"[1970-01-02T01:00:00.000Z] network=testnet message='Invalid keyHash on RandomGenerator contract'","level":"error"}
+{"message":"[1970-01-01T06:00:00.000Z] network=testnet message='Unsupported network'","level":"error"}
+{"message":"[1970-01-01T18:00:00.000Z] network=testnet message='Invalid JSON RPC response'","level":"error"}
+{"message":"[1970-01-02T06:00:00.000Z] network=testnet message='Invalid keyHash on RandomGenerator contract'","level":"error"}
+{"message":"[1970-01-02T18:00:00.000Z] network=testnet message='Lottery ID not eligible for injection (mod. 4)'","level":"error"}
 ```
