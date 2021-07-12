@@ -36,7 +36,16 @@ const main = async () => {
         ethers.provider.getBlockNumber(),
         contract.currentLotteryId(),
       ]);
-      const gasPrice: BigNumber = _gasPrice.mul(BigNumber.from(2)); // Double the recommended gasPrice from the network for faster validation.
+
+      // Verify Lottery ID is eligible for a $Cake injection, from the injector address, for any given network.
+      // Lottery public round started at epoch #8.
+      // Manual $Cake injection ended at epoch #20.
+      if (!_lotteryId.mod(4).eq(0)) {
+        throw new Error("Lottery ID not eligible for injection (mod. 4)");
+      }
+
+      // Double the recommended gasPrice from the network for faster validation.
+      const gasPrice: BigNumber = _gasPrice.mul(BigNumber.from(2));
 
       // Create, sign and broadcast transaction.
       const tx = await contract.injectFunds(
