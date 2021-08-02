@@ -2,7 +2,7 @@
 
 ### Description
 
-The scheduler is composed of multiple scripts used to call `startLottery`, `closeLottery`, and `drawFinalNumberAndMakeLotteryClaimable` functions, and trigger events; as well as monitoring lottery results.
+The scheduler is composed of multiple scripts used to call `startLottery`, `closeLottery`, and `drawFinalNumberAndMakeLotteryClaimable` functions, trigger events; and monitor lottery results.
 
 ### Configuration
 
@@ -12,7 +12,7 @@ The scheduler is composed of multiple scripts used to call `startLottery`, `clos
 - `Rewards`: Reward breakdown per bracket (total must be equal to 10,000)
 - `Treasury`: Fee (denominated as percentage) to 2 decimals (e.g.: 100 => 1%)
 
-Configuration can be overwritten by editing [config.ts](config.ts) file.
+> Configuration can be overwritten by editing [config.ts](config.ts) file.
 
 ### Deployment
 
@@ -31,11 +31,11 @@ $ yarn execute:[command]:[network]
 
 #### Network(s)
 
-- Mainnet (`56` - `0x38`) - [Binance Chain documentation](https://docs.binance.org/smart-chain/developer/rpc.html#mainnetchainid-0x38-56-in-decimal)
+- Mainnet, chainId `56` ([documentation](https://docs.binance.org/smart-chain/developer/rpc.html#mainnetchainid-0x38-56-in-decimal))
 
-- Testnet (`97` - `0x61`) - [Binance Chain documentation](https://docs.binance.org/smart-chain/developer/rpc.html#testnetchainid-0x61-97-in-decimal)
+- Testnet, chainId `97` ([documentation](https://docs.binance.org/smart-chain/developer/rpc.html#testnetchainid-0x61-97-in-decimal))
 
-#### Crontab
+#### Execution
 
 ```shell script
 # Close lottery
@@ -50,9 +50,9 @@ $ yarn execute:[command]:[network]
 
 ### Logging
 
-Logs will be generated at `logs/lottery-YYYY-MM-DD.log` and will be archived (.gz), with a daily rotation.
+Logs will be generated at `logs/lottery-YYYY-MM-DD.log` and will be archived (.gz) with a daily rotation.
 
-Example of logs for success:
+Examples of success logs:
 
 ```log
 {"message":"[1970-01-01T06:05:00.000Z] network=testnet block=10000000 message='Started lottery' hash=0x... signer=0x...","level":"info"}
@@ -62,7 +62,7 @@ Example of logs for success:
 {"message":"[1970-01-01T18:10:00.000Z] network=testnet block=10010001 message='Injected lottery #124' hash=0x... signer=0x...","level":"info"}
 ```
 
-Example of logs for error:
+Examples of error logs:
 
 ```log
 {"message":"[1970-01-01T06:00:00.000Z] network=testnet message='Unsupported network'","level":"error"}
