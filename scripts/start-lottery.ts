@@ -38,7 +38,7 @@ const main = async () => {
       ]);
 
       // Double the recommended gasPrice from the network for faster validation.
-      const gasPrice: BigNumber = _gasPrice.mul(BigNumber.from(2));
+      const gasPrice: BigNumber = _gasPrice.mul(2);
 
       // Get ticket price (in Cake equivalent), for a given network.
       const ticketPrice: string = await getTicketPrice(

@@ -38,7 +38,7 @@ const main = async () => {
       ]);
 
       // Double the recommended gasPrice from the network for faster validation.
-      const gasPrice: BigNumber = _gasPrice.mul(BigNumber.from(2));
+      const gasPrice: BigNumber = _gasPrice.mul(2);
 
       // Create, sign and broadcast transaction.
       const tx = await contract.drawFinalNumberAndMakeLotteryClaimable(_lotteryId.toString(), true, {
