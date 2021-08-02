@@ -41,7 +41,7 @@ const main = async () => {
       const randomGeneratorContract = await ethers.getContractAt(randomGeneratorABI, _randomGenerator);
       const keyHash = await randomGeneratorContract.keyHash();
       if (keyHash !== config.ChainlinkVRF.keyHash[networkName]) {
-        throw new Error("Invalid keyHash on RandomGenerator contract");
+        throw new Error("Invalid keyHash on RandomGenerator contract.");
       }
 
       // Create, sign and broadcast transaction.
