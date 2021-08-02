@@ -12,22 +12,9 @@ The scheduler is composed of multiple scripts used to call `startLottery`, `clos
 - `Rewards`: Reward breakdown per bracket (total must be equal to 10,000)
 - `Treasury`: Fee (denominated as percentage) to 2 decimals (e.g.: 100 => 1%)
 
-## Crontab
-
-```shell script
-# Close lottery
-0 6,18 * * * cd /opt/pancake-lottery-scheduler && yarn execute:close:mainnet
-
-# Draw lottery
-3 6,18 * * * cd /opt/pancake-lottery-scheduler && yarn execute:draw:mainnet
-
-# Start lottery
-5 6,18 * * * cd /opt/pancake-lottery-scheduler && yarn execute:start:mainnet
-```
+Configuration can be overwritten by editing [config.ts](config.ts) file.
 
 ### Deployment
-
-Configuration can be overwritten by editing [config.ts](config.ts) file.
 
 ```shell script
 # Export operator private key to be used on Hardhat Network Config.
@@ -44,9 +31,22 @@ $ yarn execute:[command]:[network]
 
 #### Network(s)
 
-- `56` - Mainnet (`0x38`)
+- Mainnet (`56` - `0x38`) - [Binance Chain documentation](https://docs.binance.org/smart-chain/developer/rpc.html#mainnetchainid-0x38-56-in-decimal)
 
-- `97` - Testnet (`0x61`)
+- Testnet (`97` - `0x61`) - [Binance Chain documentation](https://docs.binance.org/smart-chain/developer/rpc.html#testnetchainid-0x61-97-in-decimal)
+
+#### Crontab
+
+```shell script
+# Close lottery
+0 6,18 * * * cd ~/pancake-lottery-scheduler && yarn execute:close:mainnet
+
+# Draw lottery
+3 6,18 * * * cd ~/pancake-lottery-scheduler && yarn execute:draw:mainnet
+
+# Start lottery
+5 6,18 * * * cd ~/pancake-lottery-scheduler && yarn execute:start:mainnet
+```
 
 ### Logging
 
