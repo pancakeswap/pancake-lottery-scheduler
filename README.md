@@ -41,7 +41,6 @@ $ yarn execute:[command]:[network]
 - `start`: Start a new lottery; for a given network.
 - `close`: Close a lottery, based on `currentLotteryId`; for a given network.
 - `draw`: Draw winning numbers, based on `currentLotteryId`; for a given network.
-- `inject`: Inject funds ($Cake), based on `currentLotteryId`; for a given network.
 
 #### Network(s)
 
