@@ -8,7 +8,6 @@ The scheduler is composed of multiple scripts used to call `startLottery`, `clos
 
 - `Lottery`: Address of [PancakeSwapLottery](https://github.com/pancakeswap/pancake-contracts/tree/master/projects/lottery) contract
 - `Ticket`: Ticket Price (denominated in USD) and Precision
-- `Injection`: Amount (denominated in $Cake) to be injected
 - `Discount`: Divisor to compute discount magnitude for bulk ticket purchase
 - `Rewards`: Reward breakdown per bracket (total must be equal to 10,000)
 - `Treasury`: Fee (denominated as percentage) to 2 decimals (e.g.: 100 => 1%)
@@ -31,9 +30,8 @@ The scheduler is composed of multiple scripts used to call `startLottery`, `clos
 Configuration can be overwritten by editing [config.ts](config.ts) file.
 
 ```shell script
-# Export operator, and injector private keys to be used on Hardhat Network Config.
+# Export operator private key to be used on Hardhat Network Config.
 $ export OPERATOR_PRIVATE_KEY=OPERATOR_PRIVATE_KEY
-$ export INJECTOR_PRIVATE_KEY=INJECTOR_PRIVATE_KEY
 
 $ yarn execute:[command]:[network]
 ```
@@ -62,7 +60,6 @@ Example of logs for success:
 {"message":"[1970-01-01T18:00:00.000Z] network=testnet block=10010010 message='Closed lottery #123' hash=0x... gasPrice=10.0 signer=0x...","level":"info"}
 {"message":"[1970-01-01T18:03:00.000Z] network=testnet block=10100100 message='Drawed lottery #123' hash=0x... gasPrice=10.0 signer=0x...","level":"info"}
 {"message":"[1970-01-01T18:05:00.000Z] network=testnet block=11001000 message='Started lottery' hash=0x... gasPrice=10.0 signer=0x...","level":"info"}
-{"message":"[1970-01-01T18:10:00.000Z] network=testnet block=10010001 message='Injected lottery #124' hash=0x... gasPrice=10.0 signer=0x...","level":"info"}
 ```
 
 Example of logs for error:
@@ -71,5 +68,4 @@ Example of logs for error:
 {"message":"[1970-01-01T06:00:00.000Z] network=testnet message='Unsupported network'","level":"error"}
 {"message":"[1970-01-01T18:00:00.000Z] network=testnet message='Invalid JSON RPC response'","level":"error"}
 {"message":"[1970-01-02T06:00:00.000Z] network=testnet message='Invalid keyHash on RandomGenerator contract'","level":"error"}
-{"message":"[1970-01-02T18:00:00.000Z] network=testnet message='Lottery ID not eligible for injection (mod. 4)'","level":"error"}
 ```
