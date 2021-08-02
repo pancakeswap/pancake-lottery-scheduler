@@ -30,9 +30,9 @@ const main = async () => {
       const contract = await ethers.getContractAt(lotteryABI, config.Lottery[networkName]);
 
       // Get network data for running script.
-      const [_gasPrice, _blockNumber, _lotteryId, _randomGenerator] = await Promise.all([
-        ethers.provider.getGasPrice(),
+      const [_blockNumber, _gasPrice, _lotteryId, _randomGenerator] = await Promise.all([
         ethers.provider.getBlockNumber(),
+        ethers.provider.getGasPrice(),
         contract.currentLotteryId(),
         contract.randomGenerator(),
       ]);

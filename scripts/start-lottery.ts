@@ -31,9 +31,9 @@ const main = async () => {
       const contract = await ethers.getContractAt(lotteryABI, config.Lottery[networkName]);
 
       // Get network data for running script.
-      const [_gasPrice, _blockNumber] = await Promise.all([
-        ethers.provider.getGasPrice(),
+      const [_blockNumber, _gasPrice] = await Promise.all([
         ethers.provider.getBlockNumber(),
+        ethers.provider.getGasPrice(),
       ]);
 
       // Get ticket price (in Cake equivalent), for a given network.
