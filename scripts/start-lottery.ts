@@ -1,5 +1,4 @@
-import { BigNumber } from "@ethersproject/bignumber";
-import { formatUnits, parseUnits } from "@ethersproject/units";
+import { parseUnits } from "@ethersproject/units";
 import { ethers, network } from "hardhat";
 import lotteryABI from "../abi/PancakeSwapLottery.json";
 import { getEndTime, getTicketPrice } from "../utils";
@@ -32,13 +31,10 @@ const main = async () => {
       const contract = await ethers.getContractAt(lotteryABI, config.Lottery[networkName]);
 
       // Get network data for running script.
-      const [_gasPrice, _blockNumber] = await Promise.all([
-        ethers.provider.getGasPrice(),
+      const [_blockNumber, _gasPrice] = await Promise.all([
         ethers.provider.getBlockNumber(),
+        ethers.provider.getGasPrice(),
       ]);
-
-      // Double the recommended gasPrice from the network for faster validation.
-      const gasPrice: BigNumber = _gasPrice.mul(BigNumber.from(2));
 
       // Get ticket price (in Cake equivalent), for a given network.
       const ticketPrice: string = await getTicketPrice(
@@ -54,12 +50,12 @@ const main = async () => {
         config.Discount[networkName],
         config.Rewards[networkName],
         config.Treasury[networkName],
-        { gasPrice: gasPrice.toString(), from: operator.address }
+        { gasPrice: _gasPrice.mul(2), from: operator.address }
       );
 
       const message = `[${new Date().toISOString()}] network=${networkName} block=${_blockNumber.toString()} message='Started lottery' hash=${
         tx?.hash
-      } gasPrice=${formatUnits(gasPrice.toString(), "gwei")} signer=${operator.address}`;
+      } signer=${operator.address}`;
       console.log(message);
       logger.info({ message });
     } catch (error) {

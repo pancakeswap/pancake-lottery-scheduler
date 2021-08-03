@@ -1,5 +1,3 @@
-import { BigNumber } from "@ethersproject/bignumber";
-import { formatUnits } from "@ethersproject/units";
 import { ethers, network } from "hardhat";
 import lotteryABI from "../abi/PancakeSwapLottery.json";
 import randomGeneratorABI from "../abi/RandomNumberGenerator.json";
@@ -32,9 +30,9 @@ const main = async () => {
       const contract = await ethers.getContractAt(lotteryABI, config.Lottery[networkName]);
 
       // Get network data for running script.
-      const [_gasPrice, _blockNumber, _lotteryId, _randomGenerator] = await Promise.all([
-        ethers.provider.getGasPrice(),
+      const [_blockNumber, _gasPrice, _lotteryId, _randomGenerator] = await Promise.all([
         ethers.provider.getBlockNumber(),
+        ethers.provider.getGasPrice(),
         contract.currentLotteryId(),
         contract.randomGenerator(),
       ]);
@@ -43,21 +41,18 @@ const main = async () => {
       const randomGeneratorContract = await ethers.getContractAt(randomGeneratorABI, _randomGenerator);
       const keyHash = await randomGeneratorContract.keyHash();
       if (keyHash !== config.ChainlinkVRF.keyHash[networkName]) {
-        throw new Error("Invalid keyHash on RandomGenerator contract");
+        throw new Error("Invalid keyHash on RandomGenerator contract.");
       }
-
-      // Double the recommended gasPrice from the network for faster validation.
-      const gasPrice: BigNumber = _gasPrice.mul(BigNumber.from(2));
 
       // Create, sign and broadcast transaction.
       const tx = await contract.closeLottery(_lotteryId.toString(), {
-        gasPrice: gasPrice.toString(),
+        gasPrice: _gasPrice.mul(2),
         from: operator.address,
       });
 
       const message = `[${new Date().toISOString()}] network=${networkName} block=${_blockNumber.toString()} message='Closed lottery #${_lotteryId}' hash=${
         tx?.hash
-      } gasPrice=${formatUnits(gasPrice.toString(), "gwei")} signer=${operator.address}`;
+      } signer=${operator.address}`;
       console.log(message);
       logger.info({ message });
     } catch (error) {

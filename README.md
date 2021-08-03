@@ -2,7 +2,7 @@
 
 ### Description
 
-The scheduler is composed of multiple scripts used to call `startLottery`, `closeLottery`, and `drawFinalNumberAndMakeLotteryClaimable` functions, and trigger events; as well as monitoring lottery results.
+The scheduler is composed of multiple scripts used to call `startLottery`, `closeLottery`, and `drawFinalNumberAndMakeLotteryClaimable` functions, trigger events; and monitor lottery results.
 
 ### Configuration
 
@@ -12,22 +12,9 @@ The scheduler is composed of multiple scripts used to call `startLottery`, `clos
 - `Rewards`: Reward breakdown per bracket (total must be equal to 10,000)
 - `Treasury`: Fee (denominated as percentage) to 2 decimals (e.g.: 100 => 1%)
 
-## Crontab
-
-```shell script
-# Close lottery
-0 6,18 * * * cd /opt/pancake-lottery-scheduler && yarn execute:close:mainnet
-
-# Draw lottery
-3 6,18 * * * cd /opt/pancake-lottery-scheduler && yarn execute:draw:mainnet
-
-# Start lottery
-5 6,18 * * * cd /opt/pancake-lottery-scheduler && yarn execute:start:mainnet
-```
+> Configuration can be overwritten by editing [config.ts](config.ts) file.
 
 ### Deployment
-
-Configuration can be overwritten by editing [config.ts](config.ts) file.
 
 ```shell script
 # Export operator private key to be used on Hardhat Network Config.
@@ -44,24 +31,38 @@ $ yarn execute:[command]:[network]
 
 #### Network(s)
 
-- `56` - Mainnet (`0x38`)
+- Mainnet, chainId `56` ([documentation](https://docs.binance.org/smart-chain/developer/rpc.html#mainnetchainid-0x38-56-in-decimal))
 
-- `97` - Testnet (`0x61`)
+- Testnet, chainId `97` ([documentation](https://docs.binance.org/smart-chain/developer/rpc.html#testnetchainid-0x61-97-in-decimal))
+
+#### Execution
+
+```shell script
+# Close lottery
+0 6,18 * * * cd ~/pancake-lottery-scheduler && yarn execute:close:mainnet
+
+# Draw lottery
+3 6,18 * * * cd ~/pancake-lottery-scheduler && yarn execute:draw:mainnet
+
+# Start lottery
+5 6,18 * * * cd ~/pancake-lottery-scheduler && yarn execute:start:mainnet
+```
 
 ### Logging
 
-Logs will be generated at `logs/lottery-YYYY-MM-DD.log` and will be archived (.gz), with a daily rotation.
+Logs will be generated at `logs/lottery-YYYY-MM-DD.log` and will be archived (.gz) with a daily rotation.
 
-Example of logs for success:
+Examples of success logs:
 
 ```log
-{"message":"[1970-01-01T06:05:00.000Z] network=testnet block=10000000 message='Started lottery' hash=0x... gasPrice=10.0 signer=0x...","level":"info"}
-{"message":"[1970-01-01T18:00:00.000Z] network=testnet block=10010010 message='Closed lottery #123' hash=0x... gasPrice=10.0 signer=0x...","level":"info"}
-{"message":"[1970-01-01T18:03:00.000Z] network=testnet block=10100100 message='Drawed lottery #123' hash=0x... gasPrice=10.0 signer=0x...","level":"info"}
-{"message":"[1970-01-01T18:05:00.000Z] network=testnet block=11001000 message='Started lottery' hash=0x... gasPrice=10.0 signer=0x...","level":"info"}
+{"message":"[1970-01-01T06:05:00.000Z] network=testnet block=10000000 message='Started lottery' hash=0x... signer=0x...","level":"info"}
+{"message":"[1970-01-01T18:00:00.000Z] network=testnet block=10010010 message='Closed lottery #123' hash=0x... signer=0x...","level":"info"}
+{"message":"[1970-01-01T18:03:00.000Z] network=testnet block=10100100 message='Drawed lottery #123' hash=0x... signer=0x...","level":"info"}
+{"message":"[1970-01-01T18:05:00.000Z] network=testnet block=11001000 message='Started lottery' hash=0x... signer=0x...","level":"info"}
+{"message":"[1970-01-01T18:10:00.000Z] network=testnet block=10010001 message='Injected lottery #124' hash=0x... signer=0x...","level":"info"}
 ```
 
-Example of logs for error:
+Examples of error logs:
 
 ```log
 {"message":"[1970-01-01T06:00:00.000Z] network=testnet message='Unsupported network'","level":"error"}
