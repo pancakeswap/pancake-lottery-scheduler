@@ -9,7 +9,6 @@ on:
 
 jobs:
   format:
-
     name: Prettier
     runs-on: ubuntu-latest
 
