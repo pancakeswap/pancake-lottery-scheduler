@@ -59,7 +59,6 @@ Examples of success logs:
 {"message":"[1970-01-01T18:00:00.000Z] network=testnet block=10010010 message='Closed lottery #123' hash=0x... signer=0x...","level":"info"}
 {"message":"[1970-01-01T18:03:00.000Z] network=testnet block=10100100 message='Drawed lottery #123' hash=0x... signer=0x...","level":"info"}
 {"message":"[1970-01-01T18:05:00.000Z] network=testnet block=11001000 message='Started lottery' hash=0x... signer=0x...","level":"info"}
-{"message":"[1970-01-01T18:10:00.000Z] network=testnet block=10010001 message='Injected lottery #124' hash=0x... signer=0x...","level":"info"}
 ```
 
 Examples of error logs:

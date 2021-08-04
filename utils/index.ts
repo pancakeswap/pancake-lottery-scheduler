@@ -1,41 +1,38 @@
+import AggregatorV3InterfaceABI from "@chainlink/contracts/abi/v0.8/AggregatorV3Interface.json";
 import BigNumber from "bignumber.js";
 import { ethers } from "hardhat";
 import moment from "moment";
-import pairABI from "../abi/PancakePair.json";
+import config from "../config";
 
-// PancakeSwap v2 pair address (mainnet only).
-const CAKE_BUSD = "0x804678fa97d91B974ec2af3c843270886528a9E6";
+/**
+ * Get the ticket price, based on current network, as $Cake.
+ * Used by 'start-lottery' Hardhat script, only.
+ */
+export const getTicketPrice = async (
+  networkName: "testnet" | "mainnet",
+  usd: number,
+  precision: number
+): Promise<string> => {
+  // Bind the smart contract address to the Chainlink AggregatorV3Interface ABI, for the given network.
+  const contract = await ethers.getContractAt(AggregatorV3InterfaceABI, config.Chainlink.Oracle[networkName]);
 
-export const getTicketPrice = async (networkName: string, usd: number, precision: number): Promise<string> => {
-  // PancakeSwap v2 is only available on mainnet, static values are used for any other networks (testnet included).
-  if (networkName === "mainnet") {
-    // Bind the smart contract address to the PancakeSwap Pair ABI, for the given network.
-    const contract = await ethers.getContractAt(pairABI, CAKE_BUSD);
+  // Get the answer from the latest round data.
+  const [, answer] = await contract.latestRoundData();
 
-    // Get the reserves for the pair as Cake (token0) / BUSD (token1).
-    const [reserve0, reserve1] = await contract.getReserves();
+  // Format the answer to a fixed point number, as per Oracle's decimals.
+  // Note: We output answer BN.js to string to avoid playing with multiple types/implementations.
+  const price: BigNumber = new BigNumber(answer.toString()).div(1e8);
 
-    // Compute the Cake equivalent value for 1 BUSD.
-    // Note: We output reserve0 / reserve1 BN.js to string to avoid playing with multiple types/implementations.
-    const price: BigNumber = new BigNumber(reserve0.toString()).div(new BigNumber(reserve1.toString()));
+  // Compute the ticket price (denominated in $Cake), to the required USD eq. value.
+  const ticketPrice: BigNumber = new BigNumber(usd).div(price);
 
-    // Compute the ticket price (per 1 BUSD), to the required USD equivalent value.
-    const ticketPrice: BigNumber = price.times(usd);
-
-    // Return the ticket price (in Cake equivalent).
-    return ticketPrice.toFixed(precision);
-  }
-
-  // Return a default value, based on 1 Cake = 1 BUSD, for any other networks than 'mainnet'.
-  return new BigNumber(usd).toFixed(precision);
+  // Return the ticket price, up to `n` decimals.
+  return ticketPrice.toFixed(precision);
 };
 
 /**
  * Get the next lottery 'endTime', based on current date, as UTC.
- * Used by 'start-lottery.ts' Hardhat script, only.
- *
- * @returns number
- * @throws Error
+ * Used by 'start-lottery' Hardhat script, only.
  */
 export const getEndTime = (): number => {
   // Get current date, as UTC.

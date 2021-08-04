@@ -1,8 +1,8 @@
 import { parseUnits } from "@ethersproject/units";
 import { ethers, network } from "hardhat";
 import lotteryABI from "../abi/PancakeSwapLottery.json";
-import { getEndTime, getTicketPrice } from "../utils";
 import config from "../config";
+import { getEndTime, getTicketPrice } from "../utils";
 import logger from "../utils/logger";
 
 /**
@@ -36,7 +36,7 @@ const main = async () => {
         ethers.provider.getGasPrice(),
       ]);
 
-      // Get ticket price (in Cake equivalent), for a given network.
+      // Get ticket price (denominated in $Cake), for a given network.
       const ticketPrice: string = await getTicketPrice(
         networkName,
         config.Ticket.Price[networkName],
