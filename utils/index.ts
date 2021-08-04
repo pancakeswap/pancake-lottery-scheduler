@@ -56,5 +56,5 @@ export const getEndTime = (): number => {
       .unix();
   }
 
-  throw new Error("Could not determine next endTime");
+  throw new Error("Could not determine next Lottery end time.");
 };
