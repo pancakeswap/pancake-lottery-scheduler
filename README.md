@@ -6,11 +6,11 @@ The scheduler is composed of multiple scripts used to call `startLottery`, `clos
 
 ### Configuration
 
-- `Lottery` Address of [PancakeSwapLottery](https://github.com/pancakeswap/pancake-contracts/tree/master/projects/lottery) contract
-- `Ticket` Ticket Price (denominated in USD) and Precision
-- `Discount` Divisor to compute discount magnitude for bulk ticket purchase
-- `Rewards` Reward breakdown per bracket (total must be equal to 10,000)
-- `Treasury` Fee (denominated as percentage) to 2 decimals (e.g. 100 => 1%)
+- `Lottery` Address of [PancakeSwapLottery](https://github.com/pancakeswap/pancake-contracts/tree/master/projects/lottery) contract.
+- `Ticket` Ticket Price (denominated in USD) and Precision.
+- `Discount` Divisor to compute discount magnitude for bulk ticket purchase.
+- `Rewards` Reward breakdown per bracket (total must be equal to 10,000).
+- `Treasury` Fee (denominated as percentage) to 2 decimals (e.g. 100 => 1%).
 
 > Configuration can be overwritten by editing [config.ts](config.ts) file.
 
@@ -31,20 +31,20 @@ $ yarn execute:[command]:[network]
 
 #### Network(s)
 
-- Mainnet, chainId `56` ([documentation](https://docs.binance.org/smart-chain/developer/rpc.html#mainnetchainid-0x38-56-in-decimal))
+- `mainnet` ChainId `56` ([documentation](https://docs.binance.org/smart-chain/developer/rpc.html#mainnetchainid-0x38-56-in-decimal))
 
-- Testnet, chainId `97` ([documentation](https://docs.binance.org/smart-chain/developer/rpc.html#testnetchainid-0x61-97-in-decimal))
+- `testnet` ChainId `97` ([documentation](https://docs.binance.org/smart-chain/developer/rpc.html#testnetchainid-0x61-97-in-decimal))
 
 #### Execution
 
 ```shell script
-# Close lottery
+# Close lottery.
 0 6,18 * * * cd ~/pancake-lottery-scheduler && yarn execute:close:mainnet
 
-# Draw lottery
+# Draw lottery.
 3 6,18 * * * cd ~/pancake-lottery-scheduler && yarn execute:draw:mainnet
 
-# Start lottery
+# Start lottery.
 5 6,18 * * * cd ~/pancake-lottery-scheduler && yarn execute:start:mainnet
 ```
 
