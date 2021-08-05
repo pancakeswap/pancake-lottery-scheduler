@@ -50,7 +50,7 @@ const main = async () => {
         config.Discount[networkName],
         config.Rewards[networkName],
         config.Treasury[networkName],
-        { gasPrice: _gasPrice.mul(2), from: operator.address }
+        { gasLimit: 500000, gasPrice: _gasPrice.mul(2), from: operator.address }
       );
 
       const message = `[${new Date().toISOString()}] network=${networkName} block=${_blockNumber.toString()} message='Started lottery' hash=${
