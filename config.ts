@@ -32,8 +32,8 @@ export default {
     testnet: 2000,
   },
   Rewards: {
-    mainnet: [125, 375, 750, 1250, 2500, 5000],
-    testnet: [125, 375, 750, 1250, 2500, 5000],
+    mainnet: [250, 375, 625, 1250, 2500, 5000],
+    testnet: [250, 375, 625, 1250, 2500, 5000],
   },
   Treasury: {
     mainnet: 2000,
