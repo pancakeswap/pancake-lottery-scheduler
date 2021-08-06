@@ -20,11 +20,11 @@ export default {
   Ticket: {
     Price: {
       mainnet: 5,
-      testnet: 0.1,
+      testnet: 1,
     },
     Precision: {
       mainnet: 2,
-      testnet: 1,
+      testnet: 2,
     },
   },
   Discount: {
