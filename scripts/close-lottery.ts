@@ -46,12 +46,12 @@ const main = async () => {
 
       // Create, sign and broadcast transaction.
       const tx = await contract.closeLottery(_lotteryId.toString(), {
+        from: operator.address,
         gasLimit: 500000,
         gasPrice: _gasPrice.mul(2),
-        from: operator.address,
       });
 
-      const message = `[${new Date().toISOString()}] network=${networkName} block=${_blockNumber.toString()} message='Closed lottery #${_lotteryId}' hash=${
+      const message = `[${new Date().toISOString()}] network=${networkName} block=${_blockNumber} message='Closed lottery #${_lotteryId}' hash=${
         tx?.hash
       } signer=${operator.address}`;
       console.log(message);
@@ -64,7 +64,9 @@ const main = async () => {
       logger.error({ message });
     }
   } else {
-    const message = `[${new Date().toISOString()}] network=${networkName} message='Unsupported network'`;
+    const message = `[${new Date().toISOString()}] network=${networkName} message='Unsupported network' signer=${
+      operator.address
+    }`;
     console.error(message);
     logger.error({ message });
   }
