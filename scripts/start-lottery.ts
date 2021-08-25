@@ -21,9 +21,12 @@ const main = async () => {
     if (!process.env.OPERATOR_PRIVATE_KEY) {
       throw new Error("Missing private key (signer).");
     }
-    // Check if the PancakeSwap Lottery smart contract address is set.
-    if (config.Lottery[networkName] === ethers.constants.AddressZero) {
-      throw new Error("Missing smart contract (Lottery) address.");
+    // Check if the PancakeSwap Lottery / Chainlink Oracle smart contract addresses is set.
+    if (
+      config.Lottery[networkName] === ethers.constants.AddressZero ||
+      config.Chainlink.Oracle[networkName] === ethers.constants.AddressZero
+    ) {
+      throw new Error("Missing smart contract (Lottery / Oracle) address.");
     }
 
     try {
