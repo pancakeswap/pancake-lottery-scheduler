@@ -45,7 +45,7 @@ const main = async () => {
       }
 
       // Create, sign and broadcast transaction.
-      const tx = await contract.closeLottery(_lotteryId.toString(), {
+      const tx = await contract.closeLottery(_lotteryId, {
         from: operator.address,
         gasLimit: 500000,
         gasPrice: _gasPrice.mul(2),

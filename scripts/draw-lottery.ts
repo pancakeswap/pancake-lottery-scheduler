@@ -36,7 +36,7 @@ const main = async () => {
       ]);
 
       // Create, sign and broadcast transaction.
-      const tx = await contract.drawFinalNumberAndMakeLotteryClaimable(_lotteryId.toString(), true, {
+      const tx = await contract.drawFinalNumberAndMakeLotteryClaimable(_lotteryId, true, {
         from: operator.address,
         gasLimit: 500000,
         gasPrice: _gasPrice.mul(2),
