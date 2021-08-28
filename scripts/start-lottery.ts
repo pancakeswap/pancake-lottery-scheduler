@@ -21,12 +21,12 @@ const main = async () => {
     if (!process.env.OPERATOR_PRIVATE_KEY) {
       throw new Error("Missing private key (signer).");
     }
-    // Check if the PancakeSwap Lottery / Chainlink Oracle smart contract addresses is set.
+    // Check if the PancakeSwap Lottery / Chainlink Oracle smart contract addresses are set.
     if (
       config.Lottery[networkName] === ethers.constants.AddressZero ||
       config.Chainlink.Oracle[networkName] === ethers.constants.AddressZero
     ) {
-      throw new Error("Missing smart contract (Lottery / Oracle) address.");
+      throw new Error("Missing smart contract (Lottery / Chainlink Oracle) addresses.");
     }
 
     try {
@@ -49,7 +49,7 @@ const main = async () => {
       // Create, sign and broadcast transaction.
       const tx = await contract.startLottery(
         getEndTime(),
-        parseUnits(ticketPrice, "ether").toString(),
+        parseUnits(ticketPrice, "ether"),
         config.Discount[networkName],
         config.Rewards[networkName],
         config.Treasury[networkName],
