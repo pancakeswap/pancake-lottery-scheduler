@@ -39,13 +39,13 @@ $ yarn execute:[command]:[network]
 
 ```shell script
 # Close lottery.
-0 6,18 * * * cd ~/pancake-lottery-scheduler && yarn execute:close:mainnet
+0 0,12 * * * cd ~/pancake-lottery-scheduler && yarn execute:close:mainnet
 
 # Draw lottery.
-3 6,18 * * * cd ~/pancake-lottery-scheduler && yarn execute:draw:mainnet
+3 0,12 * * * cd ~/pancake-lottery-scheduler && yarn execute:draw:mainnet
 
 # Start lottery.
-5 6,18 * * * cd ~/pancake-lottery-scheduler && yarn execute:start:mainnet
+5 0,12 * * * cd ~/pancake-lottery-scheduler && yarn execute:start:mainnet
 ```
 
 ### Logging
