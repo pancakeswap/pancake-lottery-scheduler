@@ -15,15 +15,15 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "@chainlink/contracts": "^0.2.1",
-    "bignumber.js": "^9.0.1",
-    "moment": "^2.29.1",
-    "winston": "^3.3.3",
-    "winston-daily-rotate-file": "^4.5.5"
+    "@chainlink/contracts": "^0.2.0",
+    "bignumber.js": "^9.0.0",
+    "moment": "^2.29.0",
+    "winston": "^3.3.0",
+    "winston-daily-rotate-file": "^4.5.0"
   },
   "devDependencies": {
-    "@commitlint/cli": "^12.1.4",
-    "@commitlint/config-conventional": "^12.1.4",
+    "@commitlint/cli": "^13.1.0",
+    "@commitlint/config-conventional": "^13.1.0",
     "@nomiclabs/hardhat-ethers": "^2.0.2",
     "@types/node": "^15.12.5",
     "@typescript-eslint/eslint-plugin": "^4.28.0",
