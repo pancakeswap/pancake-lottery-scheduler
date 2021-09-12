@@ -64,7 +64,7 @@ Examples of success logs:
 Examples of error logs:
 
 ```log
-{"message":"[1970-01-01T06:00:00.000Z] network=testnet message='Unsupported network' signer=0x...","level":"error"}
-{"message":"[1970-01-01T18:00:00.000Z] network=testnet message='Invalid JSON RPC response' signer=0x...","level":"error"}
-{"message":"[1970-01-02T06:00:00.000Z] network=testnet message='Invalid keyHash on RandomGenerator contract' signer=0x...","level":"error"}
+{"message":"[1970-01-01T00:00:00.000Z] network=testnet message='Unsupported network' signer=0x...","level":"error"}
+{"message":"[1970-01-01T12:00:00.000Z] network=testnet message='Invalid JSON RPC response' signer=0x...","level":"error"}
+{"message":"[1970-01-02T00:00:00.000Z] network=testnet message='Invalid keyHash on RandomGenerator contract' signer=0x...","level":"error"}
 ```
