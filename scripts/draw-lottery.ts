@@ -2,7 +2,7 @@ import { ethers, network } from "hardhat";
 import lotteryABI from "../abi/PancakeSwapLottery.json";
 import config from "../config";
 import logger from "../utils/logger";
-import { getDifferenceBetweenLastLottery } from "../utils";
+import { isTimeToRun } from "../utils";
 
 /**
  * Draw lottery.
@@ -16,8 +16,8 @@ const main = async () => {
 
   // Check if the network is supported.
   if (networkName === "testnet" || networkName === "mainnet") {
-    const deltaTime = await getDifferenceBetweenLastLottery(networkName);
-    if (deltaTime === 36) {
+    const timeToRun = await isTimeToRun(networkName);
+    if (timeToRun) {
       // Check if the private key is set (see ethers.js signer).
       if (!process.env.OPERATOR_PRIVATE_KEY) {
         throw new Error("Missing private key (signer).");

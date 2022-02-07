@@ -44,7 +44,7 @@ export const getEndTime = (): number => {
   if (meridiem === "AM") {
     // We are in the morning (ante-meridiem), next lottery is at 12:00 PM (noon).
     return moment(`${now.format("MM DD YYYY")} 00:00:00 +0000`, "MM DD YYYY HH:mm:ss Z", true)
-      .add(12, "hours")
+      .add(36, "hours")
       .startOf("hour")
       .utc()
       .unix();
@@ -60,7 +60,7 @@ export const getEndTime = (): number => {
   throw new Error("Could not determine next Lottery end time.");
 };
 
-export const getDifferenceBetweenLastLottery = async (networkName: "testnet" | "mainnet"): Promise<number> => {
+export const isTimeToRun = async (networkName: "testnet" | "mainnet"): Promise<boolean> => {
   // Bind the smart contract address to the ABI, for a given network.
   const contract = await ethers.getContractAt(lotteryABI, config.Lottery[networkName]);
 
@@ -69,5 +69,5 @@ export const getDifferenceBetweenLastLottery = async (networkName: "testnet" | "
 
   const tx = await contract.viewLottery(lotteryId);
 
-  return moment.unix(getEndTime()).diff(moment.unix(tx.endTime), "hours");
+  return moment.unix(tx.endTime).diff(moment.unix(moment().utc().unix()), "hours") === 0;
 };
