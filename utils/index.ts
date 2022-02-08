@@ -69,5 +69,5 @@ export const isTimeToRun = async (networkName: "testnet" | "mainnet"): Promise<b
 
   const tx = await contract.viewLottery(lotteryId);
 
-  return moment.unix(tx.endTime).diff(moment.unix(moment().utc().unix()), "hours") === 0;
+  return moment.unix(tx.endTime).diff(moment.unix(moment().utc().unix()), "hours") <= 0;
 };
