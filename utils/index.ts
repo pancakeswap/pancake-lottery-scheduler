@@ -3,6 +3,7 @@ import BigNumber from "bignumber.js";
 import { ethers } from "hardhat";
 import moment from "moment";
 import config from "../config";
+import lotteryABI from "../abi/PancakeSwapLottery.json";
 
 /**
  * Get the ticket price, based on current network, as $Cake.
@@ -43,7 +44,7 @@ export const getEndTime = (): number => {
   if (meridiem === "AM") {
     // We are in the morning (ante-meridiem), next lottery is at 12:00 PM (noon).
     return moment(`${now.format("MM DD YYYY")} 00:00:00 +0000`, "MM DD YYYY HH:mm:ss Z", true)
-      .add(12, "hours")
+      .add(36, "hours")
       .startOf("hour")
       .utc()
       .unix();
@@ -57,4 +58,16 @@ export const getEndTime = (): number => {
   }
 
   throw new Error("Could not determine next Lottery end time.");
+};
+
+export const isTimeToRun = async (networkName: "testnet" | "mainnet"): Promise<boolean> => {
+  // Bind the smart contract address to the ABI, for a given network.
+  const contract = await ethers.getContractAt(lotteryABI, config.Lottery[networkName]);
+
+  // Get network data for running script.
+  const lotteryId = await contract.currentLotteryId();
+
+  const tx = await contract.viewLottery(lotteryId);
+
+  return moment.unix(tx.endTime).diff(moment.unix(moment().utc().unix()), "hours") === 0;
 };
