@@ -1,7 +1,6 @@
 import AggregatorV3InterfaceABI from "@chainlink/contracts/abi/v0.8/AggregatorV3Interface.json";
 import BigNumber from "bignumber.js";
 import { ethers } from "hardhat";
-import moment from "moment";
 import config from "../config";
 import lotteryABI from "../abi/PancakeSwapLottery.json";
 
@@ -36,25 +35,35 @@ export const getTicketPrice = async (
  * Used by 'start-lottery' Hardhat script, only.
  */
 export const getEndTime = (): number => {
-  // Get current date, as UTC.
-  const now = moment().utc();
+  // Get current date
+  const currentDate = new Date();
+  // Convert current date to utc
+  const utcDate = new Date(currentDate.getTime() + currentDate.getTimezoneOffset() * 60000);
 
   // Get meridiem (AM/PM), based on current UTC Date.
-  const meridiem = now.format("A");
+  const meridiem = utcDate.getHours() >= 12 ? "PM" : "AM";
+
   if (meridiem === "AM") {
     // We are in the morning (ante-meridiem), next lottery is at 12:00 PM (noon).
-    return moment(`${now.format("MM DD YYYY")} 00:00:00 +0000`, "MM DD YYYY HH:mm:ss Z", true)
-      .add(36, "hours")
-      .startOf("hour")
-      .utc()
-      .unix();
+    // Set clock to 0
+    utcDate.setHours(0);
+    utcDate.setMinutes(0);
+    utcDate.setSeconds(0);
+    // Add 36 hours to clock
+    utcDate.setHours(utcDate.getHours()+36);
+
+    // Convert to unix milliseconds and then to seconds
+    return utcDate.getTime() / 1000;
   } else if (meridiem === "PM") {
     // We are in the afternoon (post-meridiem), next lottery is at 12:00 AM (midnight).
-    return moment(`${now.format("MM DD YYYY")} 12:00:00 +0000`, "MM DD YYYY HH:mm:ss Z", true)
-      .add(12, "hours")
-      .startOf("hour")
-      .utc()
-      .unix();
+    utcDate.setHours(12);
+    utcDate.setMinutes(0);
+    utcDate.setSeconds(0);
+    // Add 12 hours to clock
+    utcDate.setHours(utcDate.getHours()+12);
+
+    // Convert to unix milliseconds and then to seconds
+    return utcDate.getTime() / 1000;
   }
 
   throw new Error("Could not determine next Lottery end time.");
@@ -69,5 +78,19 @@ export const isTimeToRun = async (networkName: "testnet" | "mainnet"): Promise<b
 
   const tx = await contract.viewLottery(lotteryId);
 
-  return moment.unix(tx.endTime).diff(moment.unix(moment().utc().unix()), "hours") <= 0;
+  // Get endTime Date
+  const endTimeDate = new Date(tx.endTime * 1000);
+  // Get current date
+  const currentDate = new Date();
+  // Convert current date to utc
+  const utcDate = new Date(currentDate.getTime() + currentDate.getTimezoneOffset() * 60000);
+
+  // Get difference between endTime and utctime
+  let diff =(endTimeDate.getTime() - utcDate.getTime()) / 1000;
+  // Convert to hours
+  diff /= (60 * 60);
+  // Make difference positive and round
+  diff = Math.abs(Math.round(diff));
+
+  return diff <= 0
 };
