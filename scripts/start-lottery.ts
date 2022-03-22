@@ -19,10 +19,6 @@ const main = async () => {
   if (networkName === "testnet" || networkName === "mainnet") {
     const timeToRun = await isTimeToRun(networkName);
     if (timeToRun) {
-      // Check if the private key is set (see ethers.js signer).
-      if (!process.env.OPERATOR_PRIVATE_KEY) {
-        throw new Error("Missing private key (signer).");
-      }
       // Check if the PancakeSwap Lottery / Chainlink Oracle smart contract addresses are set.
       if (
         config.Lottery[networkName] === ethers.constants.AddressZero ||
