@@ -70,13 +70,30 @@ export const getEndTime = (): number => {
 };
 
 export const isTimeToRun = async (networkName: "testnet" | "mainnet"): Promise<boolean> => {
-  // Bind the smart contract address to the ABI, for a given network.
-  const contract = await ethers.getContractAt(lotteryABI, config.Lottery[networkName]);
+  let attempt = 1;
+  let error;
+  let isTime = true;
+  while (attempt < 6) {
+    try {
+      // Bind the smart contract address to the ABI, for a given network.
+      const contract = await ethers.getContractAt(lotteryABI, config.Lottery[networkName]);
 
-  // Get network data for running script.
-  const lotteryId = await contract.currentLotteryId();
+      // Get network data for running script.
+      const lotteryId = await contract.currentLotteryId();
 
-  const tx = await contract.viewLottery(lotteryId);
+      const tx = await contract.viewLottery(lotteryId);
+      isTime = moment.unix(tx.endTime).diff(moment.unix(moment().utc().unix()), "hours") <= 0;
+      console.log(attempt);
+      break;
+    } catch (e) {
+      error = e;
+    }
+    attempt++;
+  }
+  if (error && attempt >= 5) {
+    console.log(error);
+  }
+
 
   // Get endTime Date
   const endTimeDate = new Date(tx.endTime * 1000);
@@ -93,4 +110,5 @@ export const isTimeToRun = async (networkName: "testnet" | "mainnet"): Promise<b
   diff = Math.abs(Math.round(diff));
 
   return diff <= 0
+
 };
