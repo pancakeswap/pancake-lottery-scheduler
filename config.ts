@@ -1,7 +1,7 @@
 export default {
   Lottery: {
-    mainnet: "0x5aF6D33DE2ccEC94efb1bDF8f92Bd58085432d2c",
-    testnet: "0x5790c3534F30437641541a0FA04C992799602998",
+    mainnet: "0xfc496878227C1246492773853d4132578957d276",
+    testnet: "0x415a5BA5EDAE22Bddb653Fb4F5bd828EF39EcC2F",
   },
   Chainlink: {
     Oracle: {

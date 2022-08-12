@@ -112,3 +112,5 @@ dist
 # IDE's
 .vscode/
 .idea/
+
+.envrc
