@@ -6,7 +6,7 @@ export default {
   Chainlink: {
     Oracle: {
       // Documentation: https://docs.chain.link/docs/binance-smart-chain-addresses/
-      mainnet: "0xB6064eD41d4f67e353768aA239cA86f4F73665a1",
+      mainnet: "0x51597f405303c4377e36123cbc172b13269ea163",
       testnet: "0x81faeDDfeBc2F8Ac524327d70Cf913001732224C",
     },
     VRF: {
